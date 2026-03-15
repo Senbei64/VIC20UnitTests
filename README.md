@@ -29,19 +29,28 @@ All tools must be in the path.
 
 ## The Example Program
 StarWanderer, a 2D spacecraft flight simulator.
-The physics computation library and the random numbers generator are the subject of unit testing.
+The physics computation library and the random number generator are covered by unit tests.
 
 **Controls:**
-- WASD: throttle in cardinal directions
-- B: emergency brake
+- **W A S D**: throttle in cardinal directions
+- **B**: emergency brake
+
+![PAL screenshot](images/starwanderer_pal.png)
+
+![NTSC screenshot](images/starwanderer_ntsc.png)
 
 ## The Unit Tests
-Tests the public functions of the physics module.
+Tests cover the public functions of the physics module and the xorshift random number generator.
 
 Test progress and results are displayed on the PET console.
-Upon successful completion, a marker file is created on the host system, which make uses to verify the test step.
+Upon successful completion, a marker file is created on the host system.  
+GNU Make uses this file to verify that the test step succeeded.
 
 VICE is configured to map device 8 to the current host folder.
+
+![Physics unit tests](images/testphysics.png)
+
+![Xorshift unit tests](images/testxorshift.png)
 
 ## Third-Party Components
 This project uses components from the following open-source projects:
