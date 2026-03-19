@@ -21,25 +21,19 @@ all: ../bin/starwanderer.prg
 
 ../obj/physics_ut.o: physics.inc physics.s
 	ca65 -t vic20 -DUNIT_TESTS=1 $(CFLAGS) -o ../obj/physics_ut.o physics.s
-../bin/testphysics.prg: pet-tests.cfg ../obj/physics_ut.o testphysics.c
-	cl65 -t pet -C pet-tests.cfg $(CFLAGS) -o ../bin/testphysics.prg ../obj/physics_ut.o testphysics.c
-	-del ..\obj\physics.ok 2> nul
+../bin/testphysics.prg: ../obj/physics_ut.o testphysics.c
+	cl65 -t sim6502 $(CFLAGS) -o ../bin/testphysics.prg ../obj/physics_ut.o testphysics.c
 
 ../obj/xorshift_ut.o: xorshift.inc xorshift.s
 	ca65 -t vic20 -DUNIT_TESTS=1 $(CFLAGS) -o ../obj/xorshift_ut.o xorshift.s
-../bin/testxorshift.prg: pet-tests.cfg ../obj/xorshift_ut.o testxorshift.c
-	cl65 -t pet -C pet-tests.cfg $(CFLAGS) -o ../bin/testxorshift.prg ../obj/xorshift_ut.o testxorshift.c
-	-del ..\obj\xorshift.ok 2> nul
+../bin/testxorshift.prg: ../obj/xorshift_ut.o testxorshift.c
+	cl65 -t sim6502 $(CFLAGS) -o ../bin/testxorshift.prg ../obj/xorshift_ut.o testxorshift.c
 
 # run tests
-../obj/xorshift.ok: ../bin/testxorshift.prg
-	cd .. && cmd /c start xpet -silent -default +drive8truedrive -busdevice8 -warp -autostartprgmode 1 bin\testxorshift.prg
-	timeout /t 5 /nobreak
-	taskkill /im xpet.exe /f
 ../obj/physics.ok: ../bin/testphysics.prg
-	cd .. && cmd /c start xpet -silent -default +drive8truedrive -busdevice8 -warp -autostartprgmode 1 bin\testphysics.prg
-	timeout /t 5 /nobreak
-	taskkill /im xpet.exe /f
+	cd .. & sim65 bin/testphysics.prg
+../obj/xorshift.ok: ../bin/testxorshift.prg
+	cd .. & sim65 bin/testxorshift.prg
 
 # link program
 ../bin/starwanderer.prg: ../obj/physics.ok ../obj/xorshift.ok starwanderer.cfg ../obj/starwanderer.o ../obj/input.o ../obj/physics.o ../obj/xorshift.o
@@ -49,7 +43,6 @@ all: ../bin/starwanderer.prg
 clean:
 	-del ..\obj\*.o 2> nul
 	-del ..\obj\*.ok 2> nul
-	-del ..\obj\*.seq 2> nul
 	-del ..\bin\*.prg 2> nul
 
 #-----------------------------------------------------------------------------

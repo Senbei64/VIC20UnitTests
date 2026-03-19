@@ -1,7 +1,6 @@
 /*- VIC-20 Unit Tests - Copyright 2026 Fabio Carignano ---------------------*/
 
 #include "xorshift.h"
-#include <conio.h>
 #include <stdio.h>
 
 /*- LOCAL VARIABLES --------------------------------------------------------*/
@@ -11,16 +10,15 @@ static unsigned char seen[256];
 
 /*- GLOBVAL FUNCTIONS ------------------------------------------------------*/
 
-void main(void)
+int main(void)
 {
     short i;
     short count;
 
-    clrscr();
     printf("XorShift Tests\n");
 
     /* Test 1: Range - all 256 values */
-    printf("\nTest Range...");
+    printf("Test Range...");
     for (i = 0; i < 256; ++i)
 	{
         seen[i] = 0;
@@ -42,16 +40,16 @@ void main(void)
 
     if (count == 256)
 	{
-        printf("OK");
+        printf("OK\n");
     }
 	else
 	{
-        printf("FAIL (%d/256)", count);
+        printf("FAIL (%d/256)\n", count);
         all_ok = 0;
     }
 
     /* Test 2: Period - 255 unique values */
-    printf("\nTest Period...");
+    printf("Test Period...");
     for (i = 0; i < 256; ++i)
 	{
         seen[i] = 0;
@@ -72,20 +70,20 @@ void main(void)
 
     if (count == 255)
 	{
-        printf("OK");
+        printf("OK\n");
     }
 	else
 	{
-        printf("FAIL (%d/255)", count);
+        printf("FAIL (%d/255)\n", count);
         all_ok = 0;
     }
 
-	printf("\nRESULT: %s\n", all_ok ? "SUCCESS" : "FAILURE");
+	printf("RESULT: %s\n", all_ok ? "SUCCESS" : "FAILURE");
 
     if (all_ok)
     {
-        FILE *f = fopen("obj/xorshift.ok", "w");
-
+        FILE * f = fopen("obj/xorshift.ok", "w");
+        
         if (!f)
         {
             printf("file open error\n");
@@ -97,7 +95,7 @@ void main(void)
         }
     }
 
-    cgetc();
+    return all_ok ? 0 : 3;
 }
 
 /*--------------------------------------------------------------------------*/

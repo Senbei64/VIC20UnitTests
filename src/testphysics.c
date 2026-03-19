@@ -1,7 +1,6 @@
 /*- VIC-20 Unit Tests - Copyright 2026 Fabio Carignano ---------------------*/
 
 #include "physics.h"
-#include <conio.h>
 #include <stdio.h>
 
 /*- MACROS -----------------------------------------------------------------*/
@@ -43,11 +42,10 @@ static void check(const char *label, short exp_x, short exp_y)
 
 /*- GLOBVAL FUNCTIONS ------------------------------------------------------*/
 
-void main(void)
+int main(void)
 {
     short i;
 
-	clrscr();
     printf("Physics Tests\n");
 
 	RESET();
@@ -104,24 +102,24 @@ void main(void)
     phy_add_acc(ACC(0x40, 0xC0));
     check("T11 XY mix       ", 0x0100, 0xFF00);
 
-	printf("\nRESULT: %s\n", all_ok ? "SUCCESS" : "FAILURE");
-	
-	if (all_ok)
-	{
-		FILE *f = fopen("obj/physics.ok", "w");
-		
-		if (!f)
-		{
-			printf("file open error\n");
-		}
-		else
-		{
-			fprintf(f, "all tests passed\n");
-			fclose(f);
-		}
-	}
-	
-	cgetc();
+	printf("RESULT: %s\n", all_ok ? "SUCCESS" : "FAILURE");
+
+    if (all_ok)
+    {
+        FILE * f = fopen("obj/physics.ok", "w");
+        
+        if (!f)
+        {
+            printf("file open error\n");
+        }
+        else
+        {
+            fprintf(f, "all tests passed\n");
+            fclose(f);
+        }
+    }
+
+	return all_ok ? 0 : 3;
 }
 
 /*--------------------------------------------------------------------------*/
