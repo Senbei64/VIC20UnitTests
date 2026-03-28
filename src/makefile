@@ -31,9 +31,9 @@ all: ../bin/starwanderer.prg
 
 # run tests
 ../obj/physics.ok: ../bin/testphysics.prg
-	cd .. & sim65 bin/testphysics.prg
+	cd .. && sim65 bin/testphysics.prg
 ../obj/xorshift.ok: ../bin/testxorshift.prg
-	cd .. & sim65 bin/testxorshift.prg
+	cd .. && sim65 bin/testxorshift.prg
 
 # link program
 ../bin/starwanderer.prg: ../obj/physics.ok ../obj/xorshift.ok starwanderer.cfg ../obj/starwanderer.o ../obj/input.o ../obj/physics.o ../obj/xorshift.o

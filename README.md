@@ -1,6 +1,8 @@
 # VIC20UnitTests
 Vic-20 assembly application with unit tests written in C and executed as part of the build process.
 
+![build](https://github.com/Senbei64/VIC20UnitTests/actions/workflows/build.yaml/badge.svg)
+
 ## License
 Copyright (c) 2026 Fabio Carignano
 SPDX-License-Identifier: MIT

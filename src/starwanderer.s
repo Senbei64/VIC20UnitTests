@@ -5,6 +5,11 @@
 .include "physics.inc"
 .include "xorshift.inc"
 
+; GitHub build system uses cc65 2.18
+.ifndef VIA2_ACR
+    VIA2_ACR = VIA2_CR
+.endif
+
 ;- CONSTANTS -----------------------------------------------------------------
 
 PAL_LINES           = 312
